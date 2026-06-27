@@ -1,0 +1,29 @@
+plugins:
+  - rubocop-rails
+
+require:
+  - ../lib/minchalle_rubocop/cop/migrations/null_false.rb
+
+AllCops:
+  TargetRailsVersion: 7.1
+  NewCops: enable
+  Exclude:
+    - 'docker/**/*'
+    - 'vendor/**/*'
+    - 'db/schema.rb'
+
+Rails/Blank:
+  UnlessPresent: false
+
+# belongs_to_required_by_default = false のため presence バリデーションは冗長ではない
+Rails/RedundantPresenceValidationOnBelongsTo:
+  Enabled: false
+
+Rails/UnknownEnv:
+  Environments:
+    - production
+    - staging
+    - development
+    - dev_local
+    - test
+

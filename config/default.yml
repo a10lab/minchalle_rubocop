@@ -1,14 +1,117 @@
-require:
-  - rubocop-performance
-
 AllCops:
+  TargetRubyVersion: 3.2
   NewCops: enable
   Exclude:
     - 'node_modules/**/*'
+    - 'docker/**/*'
     - 'vendor/**/*'
 
+Layout/IndentationConsistency:
+  EnforcedStyle: indented_internal_methods
+
 Layout/LineLength:
-  Max: 120
+  Max: 160
+
+Lint/AmbiguousBlockAssociation:
+  # expect { }.not_to change { } という書き方は許容したいので spec 以下は無視する
+  Exclude:
+    - 'spec/**/*'
+
+Lint/EmptyBlock:
+  # factory を空で作ることは許容したいので spec/factories 以下は無視する
+  Exclude:
+    - 'spec/factories/*'
+
+Metrics/AbcSize:
+  Max: 30
+
+Metrics/BlockLength:
+  Exclude:
+    # RSpec の DSL を使う都合上守るのは難しいので無視する
+    - 'spec/**/*'
+    # rake task も守るのは難しいので除外する
+    - 'lib/tasks/*'
+    # routes は守れないので除外する
+    - 'config/routes.rb'
+    - 'config/routes/*.rb'
+
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/MethodLength:
+  Max: 30
+
+Naming/MethodName:
+  Exclude:
+    # self.ECM01 のような snake_case ではない
+    # メソッド名を大量に使っているため除外
+    - 'app/utilities/error_code.rb'
+
+Naming/VariableNumber:
+  Enabled: false
+
+Style/AndOr:
+  # and return の記法は許可する
+  EnforcedStyle: conditionals
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/BlockDelimiters:
+  # 既存コードの大部分が引っかかるので --auto-correct の自動修正には含めない
+  AutoCorrect: false
+  # RSpec の let() {} 記法を多用するので無視する
+  Exclude:
+    - 'spec/**/*'
+
+Style/ClassAndModuleChildren:
+  Enabled: false
 
 Style/Documentation:
+  Enabled: false
+
+Style/EmptyMethod:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/Lambda:
+  Enabled: false
+
+Style/MutableConstant:
+  Enabled: false
+
+Style/Not:
+  Enabled: false
+
+Style/NumericLiterals:
+  # ex) 1000000 => 1_000_000
+  MinDigits: 7
+
+Style/NumericPredicate:
+  Enabled: false
+
+Style/StringLiterals:
+  # ダブルクォーテーションへの統一は別途検討
+  #EnforcedStyle: double_quotes
+  Enabled: false
+
+Style/SymbolArray:
+  Enabled: false
+
+Style/WordArray:
+  Enabled: false
+
+Style/TrailingCommaInArguments:
+  Enabled: false
+
+Style/TrailingCommaInArrayLiteral:
+  Enabled: false
+
+Style/TrailingCommaInHashLiteral:
+  Enabled: false
+
+# !x.empty? より x.size > 0 の方が分かりやすい
+Style/ZeroLengthPredicate:
   Enabled: false
