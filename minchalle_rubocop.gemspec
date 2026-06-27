@@ -14,6 +14,7 @@ Gem::Specification.new do |spec|
 
   spec.metadata['homepage_uri'] = spec.homepage
   spec.metadata['source_code_uri'] = spec.homepage
+  spec.metadata['default_lint_roller_plugin'] = 'MinchalleRubocop::Plugin'
 
   spec.files = Dir.chdir(__dir__) do
     Dir.glob("{lib,config}/**/*") + ["README.md", "minchalle_rubocop.gemspec"].select { |f| File.exist?(f) }
@@ -24,4 +25,5 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'rubocop', '1.87.0'
   spec.add_dependency 'rubocop-rails', '2.35.3'
+  spec.add_dependency 'lint_roller'
 end
