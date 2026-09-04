@@ -1,41 +1,65 @@
 # minchalle_rubocop
 
-Rubocop の設定を共通化するためのリポジトリ
+A shared RuboCop configuration gem to enforce consistent Ruby coding standards across projects.
 
-# Usage
+## Installation & Usage
 
-## 個人の開発環境にインストールして利用する
+### Adding to a Project Gemfile
 
-1. 本リポジトリをクローン
-2. gem installする
-  ```sh
-  # 以前にビルドしたものがあれば削除しておく
-  $ rm minchalle_rubocop-*.gem
+Since this is a public repository, you can reference it directly via GitHub in your `Gemfile`:
 
-  # gem を build して install する
-  $ gem build minchalle_rubocop.gemspec
-  $ gem install minchalle_rubocop-*.gem
-  ```
-3. `~/.rubocop.yml` の plugins に追加
-  ```sh
-  # ファイルがない場合は↓で作成できる
-  $ echo -e "plugins:\n  - minchalle_rubocop" > ~/.rubocop.yml
-  ```
+```ruby
+group :development, :test do
+  gem "minchalle_rubocop", github: "a10lab/minchalle_rubocop", branch: "main"
+end
+```
 
-## リポジトリに取り入れる場合
+Then, add the plugin to your project's `.rubocop.yml`:
 
-本リポジトリは private repository なので `gem 'minchalle_rubocop', git: 'https://github.com/a10lab/minchalle_rubocop'` にすると認証が求められる。
-何かしらの手段で認証情報を渡せば取得できるのでそれでも良いが、CI(特に CircleCI)でも利用することを考えると git submodule として取り込む方が扱いやすいのでおすすめ。
+```yaml
+plugins:
+  - minchalle_rubocop
+```
 
-1. git submodule として追加
-  ```sh
-  $ mkdir -p vendor/gems
-  $ git submodule add git@github.com:a10lab/minchalle_rubocop.git vendor/gems/minchalle_rubocop
-  $ git submodule update --init
-  ```
-2. Gemfile を編集 (↓は minchalle_api におけるローカル開発環境およびCIでのみ利用するgroupに追加する例)
-  ```ruby
-  group :dev_local, :test do
-    gem "minchalle_rubocop", path: "vendor/gems/minchalle_rubocop"
-  end
-  ```
+#### Alternative: Using Git Submodules
+
+If you prefer vendoring the gem into your repository using Git submodules:
+
+1. Add as a submodule:
+   ```sh
+   mkdir -p vendor/gems
+   git submodule add https://github.com/a10lab/minchalle_rubocop.git vendor/gems/minchalle_rubocop
+   git submodule update --init
+   ```
+
+2. Reference the local path in your `Gemfile`:
+   ```ruby
+   group :development, :test do
+     gem "minchalle_rubocop", path: "vendor/gems/minchalle_rubocop"
+   end
+   ```
+
+### Global Installation for Local Development
+
+To use this configuration across all local projects without adding it to a specific `Gemfile`:
+
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/a10lab/minchalle_rubocop.git
+   cd minchalle_rubocop
+   ```
+
+2. Build and install the gem locally:
+   ```sh
+   # Remove old builds if present
+   rm -f minchalle_rubocop-*.gem
+
+   # Build and install
+   gem build minchalle_rubocop.gemspec
+   gem install minchalle_rubocop-*.gem
+   ```
+
+3. Add the plugin to your global `~/.rubocop.yml`:
+   ```sh
+   echo -e "plugins:\n  - minchalle_rubocop" >> ~/.rubocop.yml
+   ```
