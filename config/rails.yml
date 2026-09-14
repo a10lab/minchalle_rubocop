@@ -5,7 +5,7 @@ require:
   - ../lib/minchalle_rubocop/cop/migrations/null_false.rb
 
 AllCops:
-  TargetRailsVersion: 7.1
+  TargetRailsVersion: 8.0
   NewCops: enable
   Exclude:
     - 'docker/**/*'
