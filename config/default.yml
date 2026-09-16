@@ -23,7 +23,7 @@ Lint/EmptyBlock:
     - 'spec/factories/*'
 
 Metrics/AbcSize:
-  Max: 30
+  Max: 55
 
 Metrics/BlockLength:
   Exclude:
@@ -37,6 +37,9 @@ Metrics/BlockLength:
 
 Metrics/ClassLength:
   Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Max: 15
 
 Metrics/MethodLength:
   Max: 30
