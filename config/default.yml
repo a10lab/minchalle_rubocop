@@ -34,6 +34,8 @@ Metrics/BlockLength:
     # routes は守れないので除外する
     - 'config/routes.rb'
     - 'config/routes/*.rb'
+    # environments は1つのBlockに設定を定義するので除外する
+    - 'config/environments/*.rb'
 
 Metrics/ClassLength:
   Enabled: false
